@@ -55,7 +55,17 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     @Transactional
     public RecipeCommand findCommandById(String id) {
-        return recipeToRecipeCommand.convert(findById(id));
+
+        RecipeCommand recipeCommand = recipeToRecipeCommand.convert(findById(id));
+
+        //enhance command object with id value
+        if(recipeCommand.getIngredients() != null && recipeCommand.getIngredients().size() > 0){
+            recipeCommand.getIngredients().forEach(rc -> {
+                rc.setRecipeId(recipeCommand.getId());
+            });
+        }
+
+        return recipeCommand;
     }
 
     @Override
