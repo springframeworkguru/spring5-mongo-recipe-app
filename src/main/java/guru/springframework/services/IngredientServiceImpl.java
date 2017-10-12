@@ -9,7 +9,6 @@ import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -54,10 +53,6 @@ public class IngredientServiceImpl implements IngredientService {
             //todo impl error handling
             log.error("Ingredient id not found: " + ingredientId);
         }
-
-        //enhance command object with recipe id
-        IngredientCommand ingredientCommand = ingredientCommandOptional.get();
-        ingredientCommand.setRecipeId(recipe.getId());
 
         return ingredientCommandOptional.get();
     }
@@ -111,12 +106,7 @@ public class IngredientServiceImpl implements IngredientService {
             }
 
             //todo check for fail
-
-            //enhance with id value
-            IngredientCommand ingredientCommandSaved = ingredientToIngredientCommand.convert(savedIngredientOptional.get());
-            ingredientCommandSaved.setRecipeId(recipe.getId());
-
-            return ingredientCommandSaved;
+            return ingredientToIngredientCommand.convert(savedIngredientOptional.get());
         }
 
     }
