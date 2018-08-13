@@ -16,9 +16,10 @@ import javax.validation.Valid;
 /**
  * Created by jt on 6/19/17.
  */
-@Slf4j
 @Controller
+@Slf4j
 public class RecipeController {
+
 
     private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
     private final RecipeService recipeService;
