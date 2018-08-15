@@ -1,8 +1,13 @@
 package guru.springframework.controllers;
 
 import guru.springframework.commands.RecipeCommand;
+import guru.springframework.converters.RecipeCommandToRecipe;
+import guru.springframework.converters.RecipeToRecipeCommand;
+import guru.springframework.domain.Recipe;
+import guru.springframework.repositories.RecipeReactiveRepository;
 import guru.springframework.services.ImageService;
 import guru.springframework.services.RecipeService;
+import guru.springframework.services.RecipeServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -11,6 +16,8 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.multipart.MultipartFile;
+import reactor.core.publisher.Mono;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -45,11 +52,12 @@ public class ImageControllerTest {
         //given
         RecipeCommand command = new RecipeCommand();
         command.setId("1");
+        Recipe recipe = new Recipe();
 
-        when(recipeService.findCommandById(anyString())).thenReturn(command);
-
+        when(recipeService.findCommandById(anyString())).thenReturn(Mono.just(command));
+        when(recipeService.findById(anyString())).thenReturn(Mono.just(recipe));
         //when
-        mockMvc.perform(get("/recipe/1/image"))
+        mockMvc.perform(get("/recipe/" + recipe.getId() + "/image"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recipe"));
 
@@ -59,13 +67,19 @@ public class ImageControllerTest {
 
     @Test
     public void handleImagePost() throws Exception {
+        //given
         MockMultipartFile multipartFile =
                 new MockMultipartFile("imagefile", "testing.txt", "text/plain",
                         "Spring Framework Guru".getBytes());
 
-        mockMvc.perform(multipart("/recipe/1/image").file(multipartFile))
+        Recipe recipe = new Recipe();
+        String recipeId = recipe.getId();
+
+        when(imageService.saveImageFile(anyString(), any(MultipartFile.class))).thenReturn(Mono.empty());
+
+        mockMvc.perform(multipart("/recipe/" + recipeId + "/image").file(multipartFile))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(header().string("Location", "/recipe/1/show"));
+                .andExpect(header().string("Location", "/recipe/" + recipeId + "/show"));
 
         verify(imageService, times(1)).saveImageFile(anyString(), any());
     }
@@ -83,13 +97,13 @@ public class ImageControllerTest {
 
         int i = 0;
 
-        for (byte primByte : s.getBytes()){
+        for (byte primByte : s.getBytes()) {
             bytesBoxed[i++] = primByte;
         }
 
         command.setImage(bytesBoxed);
 
-        when(recipeService.findCommandById(anyString())).thenReturn(command);
+        when(recipeService.findCommandById(anyString())).thenReturn(Mono.just(command));
 
         //when
         MockHttpServletResponse response = mockMvc.perform(get("/recipe/1/recipeimage"))
