@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by jt on 6/28/17.
@@ -38,6 +39,7 @@ public class IngredientServiceImpl implements IngredientService {
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 
+
         if (!recipeOptional.isPresent()){
             //todo impl error handling
             log.error("recipe id not found. Id: " + recipeId);
@@ -63,6 +65,10 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public IngredientCommand saveIngredientCommand(IngredientCommand command) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(command.getRecipeId());
+
+        if(command.getId().equals("")){
+            command.setId(UUID.randomUUID().toString());
+        }
 
         if(!recipeOptional.isPresent()){
 
