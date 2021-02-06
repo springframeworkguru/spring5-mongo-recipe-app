@@ -2,9 +2,9 @@
 
 [![codecov](https://codecov.io/gh/springframeworkguru/spring5-mongo-recipe-app/branch/master/graph/badge.svg)](https://codecov.io/gh/springframeworkguru/spring5-mongo-recipe-app)
 
-# spring5-mongo-recipe-app
-Recipe Application Using MongoDB
+# Demo Recipe App with Spring, MongoDB and Gradle
+This project was forked from a Springframeworkguru and worked through to demonstrate the use of MongoDB and Gradle (as 
+opposed to MySQL and Maven) with Spring 5. This project will also form part of the Reactive programming part of the course.
 
-This repository is for an example application built in my Spring Framework 5 - Beginner to Guru
-
-You can learn about my Spring Framework 5 Online course [here.](http://courses.springframework.guru/p/spring-framework-5-begginer-to-guru/?product_id=363173)
+Like other projects on the course, we use CircleCI to automate and signify the completion of building and testing 
+of the project. Deployment to a cloud service is not part of the project at this stage.
