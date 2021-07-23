@@ -42,6 +42,7 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:1.18.20'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	implementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
 }
 
 //export test coverage
