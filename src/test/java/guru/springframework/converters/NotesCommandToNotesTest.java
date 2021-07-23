@@ -2,10 +2,10 @@ package guru.springframework.converters;
 
 import guru.springframework.commands.NotesCommand;
 import guru.springframework.domain.Notes;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NotesCommandToNotesTest {
 
@@ -13,7 +13,7 @@ public class NotesCommandToNotesTest {
     public static final String RECIPE_NOTES = "Notes";
     NotesCommandToNotes converter;
 
-    @Before
+    @BeforeAll
     public void setUp() throws Exception {
         converter = new NotesCommandToNotes();
 

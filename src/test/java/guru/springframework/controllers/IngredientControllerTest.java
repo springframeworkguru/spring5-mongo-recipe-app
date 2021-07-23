@@ -5,8 +5,9 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.services.IngredientService;
 import guru.springframework.services.RecipeService;
 import guru.springframework.services.UnitOfMeasureService;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
@@ -36,7 +37,7 @@ public class IngredientControllerTest {
 
     MockMvc mockMvc;
 
-    @Before
+    @BeforeAll
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
