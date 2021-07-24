@@ -55,6 +55,8 @@ public class IngredientServiceImpl implements IngredientService {
             log.error("Ingredient id not found: " + ingredientId);
         }
 
+        ingredientCommandOptional.get().setRecipeId(recipe.getId());
+
         return ingredientCommandOptional.get();
     }
 

@@ -3,6 +3,7 @@ package guru.springframework.converters;
 import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.domain.UnitOfMeasure;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,8 +15,8 @@ public class UnitOfMeasureCommandToUnitOfMeasureTest {
 
     UnitOfMeasureCommandToUnitOfMeasure converter;
 
-    @BeforeAll
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         converter = new UnitOfMeasureCommandToUnitOfMeasure();
 
     }

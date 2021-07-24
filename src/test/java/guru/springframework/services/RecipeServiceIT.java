@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Created by jt on 6/21/17.
  */
-@Disabled
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class RecipeServiceIT {
@@ -38,7 +38,6 @@ public class RecipeServiceIT {
     @Autowired
     RecipeToRecipeCommand recipeToRecipeCommand;
 
-    @Transactional
     @Test
     public void testSaveOfDescription() throws Exception {
         //given

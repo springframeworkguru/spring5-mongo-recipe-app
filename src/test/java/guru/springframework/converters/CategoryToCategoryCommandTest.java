@@ -3,6 +3,7 @@ package guru.springframework.converters;
 import guru.springframework.commands.CategoryCommand;
 import guru.springframework.domain.Category;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,8 +17,8 @@ public class CategoryToCategoryCommandTest {
     public static final String DESCRIPTION = "descript";
     CategoryToCategoryCommand convter;
 
-    @BeforeAll
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         convter = new CategoryToCategoryCommand();
     }
 
