@@ -93,10 +93,12 @@ public class IngredientReactiveServiceImpl implements IngredientReactiveService 
             } else {
                 //add new Ingredient
                 Ingredient ingredient = ingredientCommandToIngredient.convert(command);
-                //  ingredient.setRecipe(recipe);
+                ingredient.setRecipe(null); // avoids stackoverflow infinite loop
                 recipe.addIngredient(ingredient);
             }
 
+            //recipeRepository.deleteById(recipe.getId()).block();
+            //log.debug("Filtrada: " + recipeRepository.findAll().filter(recipe1 -> recipe1.getId().equals(recipe.getId())).count().block());
             Recipe savedRecipe = recipeRepository.save(recipe).block();
 
             Optional<Ingredient> savedIngredientOptional = savedRecipe.getIngredients().stream()
@@ -124,6 +126,7 @@ public class IngredientReactiveServiceImpl implements IngredientReactiveService 
     }
 
     @Override
+    @Transactional
     public void deleteById(String recipeId, String idToDelete) {
 
         log.debug("Deleting ingredient: " + recipeId + ":" + idToDelete);
@@ -143,7 +146,7 @@ public class IngredientReactiveServiceImpl implements IngredientReactiveService 
             if (ingredientOptional.isPresent()) {
                 log.debug("found Ingredient");
                 Ingredient ingredientToDelete = ingredientOptional.get();
-                // ingredientToDelete.setRecipe(null);
+                //ingredientToDelete.setRecipe(null);
                 recipe.getIngredients().remove(ingredientOptional.get());
                 recipeRepository.save(recipe).block();
             }

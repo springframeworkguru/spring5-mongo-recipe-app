@@ -44,7 +44,7 @@ public class ImageReactiveServiceImpl implements ImageReactiveService {
 
             recipe.setImage(byteObjects);
 
-            recipeRepository.save(recipe);
+            recipeRepository.save(recipe).block();
         } catch (IOException e) {
             //todo handle better
             log.error("Error occurred", e);
