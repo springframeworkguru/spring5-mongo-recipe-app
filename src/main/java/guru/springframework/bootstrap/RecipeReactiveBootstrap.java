@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by jt on 6/13/17.
@@ -50,7 +51,7 @@ public class RecipeReactiveBootstrap implements ApplicationListener<ContextRefre
         }
 
         if (recipeRepository.count().block() == 0) {
-            recipeRepository.saveAll(getRecipes());
+            recipeRepository.saveAll(getRecipes()).collect(Collectors.toSet()).block();
         }
 
         log.debug("Loading Bootstrap Data");
@@ -62,53 +63,53 @@ public class RecipeReactiveBootstrap implements ApplicationListener<ContextRefre
     private void loadCategories() {
         Category cat1 = new Category();
         cat1.setDescription("American");
-        categoryRepository.save(cat1);
+        categoryRepository.save(cat1).block();
 
         Category cat2 = new Category();
         cat2.setDescription("Italian");
-        categoryRepository.save(cat2);
+        categoryRepository.save(cat2).block();
 
         Category cat3 = new Category();
         cat3.setDescription("Mexican");
-        categoryRepository.save(cat3);
+        categoryRepository.save(cat3).block();
 
         Category cat4 = new Category();
         cat4.setDescription("Fast Food");
-        categoryRepository.save(cat4);
+        categoryRepository.save(cat4).block();
     }
 
     private void loadUom() {
         UnitOfMeasure uom1 = new UnitOfMeasure();
         uom1.setDescription("Teaspoon");
-        unitOfMeasureRepository.save(uom1);
+        unitOfMeasureRepository.save(uom1).block();
 
         UnitOfMeasure uom2 = new UnitOfMeasure();
         uom2.setDescription("Tablespoon");
-        unitOfMeasureRepository.save(uom2);
+        unitOfMeasureRepository.save(uom2).block();
 
         UnitOfMeasure uom3 = new UnitOfMeasure();
         uom3.setDescription("Cup");
-        unitOfMeasureRepository.save(uom3);
+        unitOfMeasureRepository.save(uom3).block();
 
         UnitOfMeasure uom4 = new UnitOfMeasure();
         uom4.setDescription("Pinch");
-        unitOfMeasureRepository.save(uom4);
+        unitOfMeasureRepository.save(uom4).block();
 
         UnitOfMeasure uom5 = new UnitOfMeasure();
         uom5.setDescription("Ounce");
-        unitOfMeasureRepository.save(uom5);
+        unitOfMeasureRepository.save(uom5).block();
 
         UnitOfMeasure uom6 = new UnitOfMeasure();
         uom6.setDescription("Each");
-        unitOfMeasureRepository.save(uom6);
+        unitOfMeasureRepository.save(uom6).block();
 
         UnitOfMeasure uom7 = new UnitOfMeasure();
         uom7.setDescription("Pint");
-        unitOfMeasureRepository.save(uom7);
+        unitOfMeasureRepository.save(uom7).block();
 
         UnitOfMeasure uom8 = new UnitOfMeasure();
         uom8.setDescription("Dash");
-        unitOfMeasureRepository.save(uom8);
+        unitOfMeasureRepository.save(uom8).block();
     }
 
     private List<Recipe> getRecipes() {

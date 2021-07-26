@@ -1,6 +1,7 @@
-package guru.springframework.controllers;
+package guru.springframework.controllers.reactive;
 
 import guru.springframework.services.RecipeService;
+import guru.springframework.services.reactive.RecipeReactiveService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Slf4j
 @Controller
-@Profile("notReactive")
-public class IndexController {
+@Profile("reactive")
+public class IndexReactiveController {
 
-    private final RecipeService recipeService;
+    private final RecipeReactiveService recipeService;
 
-    public IndexController(RecipeService recipeService) {
+    public IndexReactiveController(RecipeReactiveService recipeService) {
         this.recipeService = recipeService;
     }
 
@@ -25,7 +26,7 @@ public class IndexController {
     public String getIndexPage(Model model) {
         log.debug("Getting Index page");
 
-        model.addAttribute("recipes", recipeService.getRecipes());
+        model.addAttribute("recipes", recipeService.getRecipes().collectList().block());
 
         return "index";
     }

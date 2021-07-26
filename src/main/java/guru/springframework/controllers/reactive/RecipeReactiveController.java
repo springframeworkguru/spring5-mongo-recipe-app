@@ -1,8 +1,9 @@
-package guru.springframework.controllers;
+package guru.springframework.controllers.reactive;
 
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.services.RecipeService;
+import guru.springframework.services.reactive.RecipeReactiveService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
@@ -19,20 +20,20 @@ import javax.validation.Valid;
  */
 @Slf4j
 @Controller
-@Profile("notReactive")
-public class RecipeController {
+@Profile("reactive")
+public class RecipeReactiveController {
 
     private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
-    private final RecipeService recipeService;
+    private final RecipeReactiveService recipeService;
 
-    public RecipeController(RecipeService recipeService) {
+    public RecipeReactiveController(RecipeReactiveService recipeService) {
         this.recipeService = recipeService;
     }
 
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model){
 
-        model.addAttribute("recipe", recipeService.findById(id));
+        model.addAttribute("recipe", recipeService.findById(id).block());
 
         return "recipe/show";
     }
@@ -46,7 +47,7 @@ public class RecipeController {
 
     @GetMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model){
-        RecipeCommand recipeCommand = recipeService.findCommandById(id);
+        RecipeCommand recipeCommand = recipeService.findCommandById(id).block();
         model.addAttribute("recipe", recipeCommand);
         return RECIPE_RECIPEFORM_URL;
     }
@@ -63,7 +64,7 @@ public class RecipeController {
             return RECIPE_RECIPEFORM_URL;
         }
 
-        RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
+        RecipeCommand savedCommand = recipeService.saveRecipeCommand(command).block();
 
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }

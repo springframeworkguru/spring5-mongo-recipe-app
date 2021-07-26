@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 
-public class ImageReactiveServiceImplTest {
+public class ImageServiceImplTest {
 
     @Mock
     RecipeRepository recipeRepository;

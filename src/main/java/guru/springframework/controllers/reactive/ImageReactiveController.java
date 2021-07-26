@@ -1,8 +1,10 @@
-package guru.springframework.controllers;
+package guru.springframework.controllers.reactive;
 
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.services.ImageService;
 import guru.springframework.services.RecipeService;
+import guru.springframework.services.reactive.ImageReactiveService;
+import guru.springframework.services.reactive.RecipeReactiveService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
@@ -22,13 +24,13 @@ import java.io.InputStream;
  * Created by jt on 7/3/17.
  */
 @Controller
-@Profile("notReactive")
-public class ImageController {
+@Profile("reactive")
+public class ImageReactiveController {
 
-    private final ImageService imageService;
-    private final RecipeService recipeService;
+    private final ImageReactiveService imageService;
+    private final RecipeReactiveService recipeService;
 
-    public ImageController(ImageService imageService, RecipeService recipeService) {
+    public ImageReactiveController(ImageReactiveService imageService, RecipeReactiveService recipeService) {
         this.imageService = imageService;
         this.recipeService = recipeService;
     }
@@ -50,7 +52,7 @@ public class ImageController {
 
     @GetMapping("recipe/{id}/recipeimage")
     public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
-        RecipeCommand recipeCommand = recipeService.findCommandById(id);
+        RecipeCommand recipeCommand = recipeService.findCommandById(id).block();
 
         if (recipeCommand.getImage() != null) {
             byte[] byteArray = new byte[recipeCommand.getImage().length];
