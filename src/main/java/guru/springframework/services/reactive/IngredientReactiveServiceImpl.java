@@ -127,7 +127,7 @@ public class IngredientReactiveServiceImpl implements IngredientReactiveService 
 
     @Override
     @Transactional
-    public void deleteById(String recipeId, String idToDelete) {
+    public Mono<Void> deleteById(String recipeId, String idToDelete) {
 
         log.debug("Deleting ingredient: " + recipeId + ":" + idToDelete);
 
@@ -153,5 +153,7 @@ public class IngredientReactiveServiceImpl implements IngredientReactiveService 
         } else {
             log.debug("Recipe Id Not found. Id:" + recipeId);
         }
+
+        return Mono.empty();
     }
 }

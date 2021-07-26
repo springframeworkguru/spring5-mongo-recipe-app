@@ -98,7 +98,7 @@ public class IngredientReactiveController {
                                    @PathVariable String id) {
 
         log.debug("deleting ingredient id:" + id);
-        ingredientService.deleteById(recipeId, id);
+        ingredientService.deleteById(recipeId, id).block();
 
         return "redirect:/recipe/" + recipeId + "/ingredients";
     }
