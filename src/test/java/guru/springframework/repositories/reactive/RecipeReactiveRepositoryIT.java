@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
@@ -25,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class RecipeReactiveRepositoryIT {
+    public static final String TEST = "test";
     @Autowired
     CategoryReactiveRepository categoryReactiveRepository;
     @Autowired
@@ -48,18 +50,18 @@ class RecipeReactiveRepositoryIT {
         Ingredient ingredient = new Ingredient();
         ingredient.setDescription("onion");
         ingredient.setAmount(BigDecimal.valueOf(5));
-        recipe.setDescription("test");
+        recipe.setDescription(TEST);
         recipe.setDifficulty(Difficulty.EASY);
         Category category = categoryReactiveRepository.findAll().blockFirst();
         recipe.getCategories().add(category);
         recipe.addIngredient(ingredient);
 
 
-        Mono<Recipe> recipeMono = recipeReactiveRepository.save(recipe);
-        Recipe savedRecipe = recipeMono.block();
+        Recipe savedRecipe = recipeReactiveRepository.save(recipe).block();
 
         assertNotNull(savedRecipe);
         assertEquals(savedRecipe.getDifficulty().toString(), Difficulty.EASY.toString());
+        assertEquals(TEST,savedRecipe.getDescription());
         assertEquals(category.getId(), savedRecipe.getCategories().stream().findFirst().get().getId());
     }
 }
