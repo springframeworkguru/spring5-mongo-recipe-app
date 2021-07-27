@@ -5,6 +5,7 @@ import guru.springframework.converters.IngredientCommandToIngredient;
 import guru.springframework.converters.IngredientToIngredientCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import guru.springframework.domain.UnitOfMeasure;
 import guru.springframework.repositories.reactive.RecipeReactiveRepository;
 import guru.springframework.repositories.reactive.UnitOfMeasureReactiveRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -80,6 +81,9 @@ public class IngredientReactiveServiceImpl implements IngredientReactiveService 
                         .doOnError(throwable -> new RuntimeException("UOM NOT FOUND")).block()); //todo address this
             } else {
                 //add new Ingredient
+                command.getUom()
+                        .setDescription(unitOfMeasureRepository
+                                .findById(command.getUom().getId()).map(UnitOfMeasure::getDescription).block());
                 Ingredient ingredient = ingredientCommandToIngredient.convert(command);
                 ingredient.setRecipe(null); // avoids stackoverflow infinite loop
                 recipe.addIngredient(ingredient);
