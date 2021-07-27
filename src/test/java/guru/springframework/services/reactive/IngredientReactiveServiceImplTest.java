@@ -23,6 +23,7 @@ import reactor.core.publisher.Mono;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -67,7 +68,7 @@ public class IngredientReactiveServiceImplTest {
         ingredient1.setId("1");
 
         Ingredient ingredient2 = new Ingredient();
-        ingredient2.setId("1");
+        ingredient2.setId("4");
 
         Ingredient ingredient3 = new Ingredient();
         ingredient3.setId("3");
@@ -80,11 +81,13 @@ public class IngredientReactiveServiceImplTest {
         when(recipeRepository.findById(anyString())).thenReturn(Mono.just(recipe));
 
         //then
-        IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId("1", "3").block();
+        IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId("1", "3")
+                .block();
 
         //when
-        assertEquals("3", ingredientCommand.getId());
+        assertNotNull(ingredientCommand);
         assertEquals("1", ingredientCommand.getRecipeId());
+        assertEquals("3", ingredientCommand.getId());
         verify(recipeRepository, times(1)).findById(anyString());
     }
 
