@@ -44,14 +44,7 @@ public class RecipeReactiveServiceImpl implements RecipeReactiveService {
 
     @Override
     public Mono<Recipe> findById(String id) {
-
-        Optional<Recipe> recipeOptional = recipeRepository.findById(id).blockOptional();
-
-        if (!recipeOptional.isPresent()) {
-            throw new NotFoundException("Recipe Not Found. For ID value: " + id);
-        }
-
-        return Mono.just(recipeOptional.get());
+        return recipeRepository.findById(id);
     }
 
     @Override
