@@ -35,7 +35,8 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-validation')
-    //implementation('com.google.code.findbugs:jsr305:3.0.2')
+    //needed to get an Constant value when testing
+    implementation('com.google.code.findbugs:jsr305:3.0.2')
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     implementation 'org.webjars:bootstrap:3.3.7-1'
     compileOnly 'org.projectlombok:lombok'
