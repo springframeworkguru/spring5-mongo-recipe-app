@@ -10,8 +10,8 @@ jobs:
       - image: cimg/openjdk:16.0.1
       - image: circleci/mongo:latest
         environment:
-          MONGO_USERNAME: admin
-          MONGO_PASSWORD: admin
+      #    MONGO_USERNAME: admin
+      #    MONGO_PASSWORD: admin
           MONGO_DATABASE: test
 
     working_directory: ~/repo
