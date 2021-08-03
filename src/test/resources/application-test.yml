@@ -3,5 +3,5 @@ spring:
     banner-mode: "off"
   data:
     mongodb:
-      uri: mongodb://admin:admin@127.0.0.1:27017/test
+      uri: mongodb://127.0.0.1:28017/test
       auto-index-creation: true

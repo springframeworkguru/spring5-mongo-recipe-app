@@ -26,8 +26,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Created by jt on 6/17/17.
  */
 @ActiveProfiles("test")
+@Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UnitOfMeasureRepositoryIT {
+
+    @Container
+    private static final MongoDBContainer MONGO_DB_CONTAINER = new MongoDBContainer("mongo:5.0.1");
 
     @Autowired
     UnitOfMeasureRepository unitOfMeasureRepository;
@@ -46,6 +50,23 @@ public class UnitOfMeasureRepositoryIT {
 
     @Autowired
     RecipeRepository recipeRepository;
+
+    @BeforeAll
+    static void setUpAll() {
+        MONGO_DB_CONTAINER.start();
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        if (!MONGO_DB_CONTAINER.isShouldBeReused()) {
+            MONGO_DB_CONTAINER.stop();
+        }
+    }
+
+    @DynamicPropertySource
+    static void mongoDbProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.data.mongodb.uri", MONGO_DB_CONTAINER::getReplicaSetUrl);
+    }
 
     @BeforeEach
     public void setUp() throws Exception {
