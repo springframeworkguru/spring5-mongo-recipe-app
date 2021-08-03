@@ -44,8 +44,8 @@
                                 <td><a href="#">Delete</a></td>
                             </tr>
                             <tr>
-                                <td th:text="${ingredient.id}">334</td>
-                                <td th:text="${ingredient.amount} + ' ' + ${ingredient.uom.getDescription()} + ' ' + ${ingredient.description}">Tasty Goodnees 3</td>
+                                <td th:text="${ingredient.getId()}">334</td>
+                                <td th:text="${ingredient.getAmount()} + ' ' + ${ingredient.uom.getDescription()} + ' ' + ${ingredient.getDescription()}">Tasty Goodnees 3</td>
                             </tr>
                         </table>
                     </div>

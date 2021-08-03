@@ -21,6 +21,7 @@ import javax.validation.Valid;
 public class RecipeController {
 
     private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
+
     private final RecipeService recipeService;
 
     public RecipeController(RecipeService recipeService) {
@@ -52,7 +53,6 @@ public class RecipeController {
     public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-
             bindingResult.getAllErrors().forEach(objectError -> {
                 log.debug(objectError.toString());
             });

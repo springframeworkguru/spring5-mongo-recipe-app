@@ -2,10 +2,10 @@ package guru.springframework.converters;
 
 import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.domain.UnitOfMeasure;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by jt on 6/21/17.
@@ -17,18 +17,18 @@ public class UnitOfMeasureToUnitOfMeasureCommandTest {
 
     UnitOfMeasureToUnitOfMeasureCommand converter;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         converter = new UnitOfMeasureToUnitOfMeasureCommand();
     }
 
     @Test
-    public void testNullObjectConvert() throws Exception {
+    public void testNullObjectConvert() {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObj() throws Exception {
+    public void testEmptyObj() {
         assertNotNull(converter.convert(new UnitOfMeasure()));
     }
 
@@ -42,6 +42,7 @@ public class UnitOfMeasureToUnitOfMeasureCommandTest {
         UnitOfMeasureCommand uomc = converter.convert(uom);
 
         //then
+        assertNotNull(uomc);
         assertEquals(LONG_VALUE, uomc.getId());
         assertEquals(DESCRIPTION, uomc.getDescription());
     }

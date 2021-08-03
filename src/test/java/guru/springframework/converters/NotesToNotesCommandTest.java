@@ -2,10 +2,10 @@ package guru.springframework.converters;
 
 import guru.springframework.commands.NotesCommand;
 import guru.springframework.domain.Notes;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by jt on 6/21/17.
@@ -16,13 +16,13 @@ public class NotesToNotesCommandTest {
     public static final String RECIPE_NOTES = "Notes";
     NotesToNotesCommand converter;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         converter = new NotesToNotesCommand();
     }
 
     @Test
-    public void convert() throws Exception {
+    public void convert() {
         //given
         Notes notes = new Notes();
         notes.setId(ID_VALUE);
@@ -32,17 +32,18 @@ public class NotesToNotesCommandTest {
         NotesCommand notesCommand = converter.convert(notes);
 
         //then
+        assertNotNull(notesCommand);
         assertEquals(ID_VALUE, notesCommand.getId());
         assertEquals(RECIPE_NOTES, notesCommand.getRecipeNotes());
     }
 
     @Test
-    public void testNull() throws Exception {
+    public void testNull() {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() throws Exception {
+    public void testEmptyObject() {
         assertNotNull(converter.convert(new Notes()));
     }
 }

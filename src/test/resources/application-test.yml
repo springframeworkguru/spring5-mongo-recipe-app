@@ -1,0 +1,7 @@
+spring:
+  main:
+    banner-mode: "off"
+  data:
+    mongodb:
+      uri: mongodb://admin:admin@127.0.0.1:27017/test
+      auto-index-creation: true
