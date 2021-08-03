@@ -2,18 +2,17 @@
 
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
-machine: true
+version: 2.1
 jobs:
   build:
     docker:
       # specify the version you desire here
       - image: cimg/openjdk:16.0.1
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+      - image: circleci/mongo:latest
+        environment:
+          MONGO_USERNAME: admin
+          MONGO_PASSWORD: admin
+          MONGO_DATABASE: test
 
     working_directory: ~/repo
 
@@ -23,6 +22,12 @@ jobs:
       TERM: dumb
 
     steps:
+      - setup_remote_docker
+
+      - run:
+          name: Waiting for Mongo
+          command: dockerize -wait tcp://localhost:27017 -timeout 1m
+
       - checkout
 
       # Download and cache dependencies
