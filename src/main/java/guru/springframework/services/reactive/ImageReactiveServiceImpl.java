@@ -28,7 +28,6 @@ public class ImageReactiveServiceImpl implements ImageReactiveService {
     }
 
     @Override
-    @Transactional
     public void saveImageFile(String recipeId, MultipartFile file) {
 
         try {
