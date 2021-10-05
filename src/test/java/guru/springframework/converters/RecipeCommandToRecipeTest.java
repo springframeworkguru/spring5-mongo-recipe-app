@@ -6,10 +6,12 @@ import guru.springframework.commands.NotesCommand;
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.domain.Difficulty;
 import guru.springframework.domain.Recipe;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeCommandToRecipeTest {
     public static final String RECIPE_ID = "1";
@@ -30,8 +32,8 @@ public class RecipeCommandToRecipeTest {
     RecipeCommandToRecipe converter;
 
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         converter = new RecipeCommandToRecipe(new CategoryCommandToCategory(),
                 new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure()),
                 new NotesCommandToNotes());
@@ -85,7 +87,7 @@ public class RecipeCommandToRecipeTest {
         recipeCommand.getIngredients().add(ingredient2);
 
         //when
-        Recipe recipe  = converter.convert(recipeCommand);
+        Recipe recipe = converter.convert(recipeCommand);
 
         assertNotNull(recipe);
         assertEquals(RECIPE_ID, recipe.getId());

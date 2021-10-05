@@ -4,6 +4,7 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.services.ImageService;
 import guru.springframework.services.RecipeService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import java.io.InputStream;
  * Created by jt on 7/3/17.
  */
 @Controller
+@Profile("notReactive")
 public class ImageController {
 
     private final ImageService imageService;

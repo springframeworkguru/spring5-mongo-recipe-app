@@ -1,15 +1,15 @@
 buildscript {
-	ext {
-		springBootVersion = '2.1.0.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '2.5.2'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -19,23 +19,37 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'jacoco'
 
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
-	mavenCentral()
-	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	runtime('org.springframework.boot:spring-boot-devtools')
-	compile 'org.webjars:bootstrap:3.3.7-1'
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
+    implementation('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
+    implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-validation')
+    //needed to get an Constant value when testing
+    implementation('com.google.code.findbugs:jsr305:3.0.2')
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    implementation 'org.webjars:bootstrap:3.3.7-1'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('io.projectreactor:reactor-test')
+    implementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
+}
+
+test {
+    useJUnitPlatform()
 }
 
 //export test coverage

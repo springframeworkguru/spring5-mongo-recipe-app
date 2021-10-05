@@ -4,6 +4,7 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
  */
 @Slf4j
 @Controller
+@Profile("notReactive")
 public class RecipeController {
 
     private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
@@ -44,7 +46,8 @@ public class RecipeController {
 
     @GetMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model){
-        model.addAttribute("recipe", recipeService.findCommandById(id));
+        RecipeCommand recipeCommand = recipeService.findCommandById(id);
+        model.addAttribute("recipe", recipeCommand);
         return RECIPE_RECIPEFORM_URL;
     }
 

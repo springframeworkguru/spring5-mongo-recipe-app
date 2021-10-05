@@ -4,12 +4,14 @@ import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class IngredientCommandToIngredientTest {
 
@@ -21,8 +23,8 @@ public class IngredientCommandToIngredientTest {
 
     IngredientCommandToIngredient converter;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         converter = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
     }
 
