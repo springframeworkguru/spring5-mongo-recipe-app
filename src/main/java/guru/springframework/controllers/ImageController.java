@@ -17,9 +17,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by jt on 7/3/17.
- */
 @Controller
 public class ImageController {
 
