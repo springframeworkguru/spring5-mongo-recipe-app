@@ -1,8 +1,6 @@
 package guru.springframework.service;
 
 import guru.springframework.dto.RecipeDTO;
-import guru.springframework.mapper.RecipeCommandToRecipe;
-import guru.springframework.mapper.RecipeToRecipeCommand;
 import guru.springframework.model.Recipe;
 import guru.springframework.exception.NotFoundException;
 import guru.springframework.repository.RecipeRepository;

@@ -1,7 +1,6 @@
 package guru.springframework.service;
 
 import guru.springframework.dto.UnitOfMeasureDTO;
-import guru.springframework.mapper.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.repository.UnitOfMeasureRepository;
 import org.springframework.stereotype.Service;
 
