@@ -2,39 +2,40 @@ package guru.springframework.service;
 
 import guru.springframework.model.Recipe;
 import guru.springframework.repository.RecipeRepository;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 
-public class ImageServiceImplTest {
-
+@ExtendWith(MockitoExtension.class)
+class ImageServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
-    ImageService imageService;
+    @InjectMocks
+    ImageServiceImpl imageService;
 
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-
+    @BeforeEach
+    public void setUp() {
         imageService = new ImageServiceImpl(recipeRepository);
     }
 
     @Test
-    public void saveImageFile() throws Exception {
+    void saveImageFile() throws Exception {
         //given
         String id = "1";
-        MultipartFile multipartFile = new MockMultipartFile("imagefile", "testing.txt", "text/plain",
+        MultipartFile multipartFile = new MockMultipartFile("imageFile", "testing.txt", "text/plain",
                 "Spring Framework Guru".getBytes());
 
         Recipe recipe = new Recipe();
@@ -53,5 +54,4 @@ public class ImageServiceImplTest {
         Recipe savedRecipe = argumentCaptor.getValue();
         assertEquals(multipartFile.getBytes().length, savedRecipe.getImage().length);
     }
-
 }

@@ -1,36 +1,41 @@
 package guru.springframework.service;
 
 import guru.springframework.dto.UnitOfMeasureDTO;
+import guru.springframework.mapper.UnitOfMeasureMapper;
 import guru.springframework.model.UnitOfMeasure;
 import guru.springframework.repository.UnitOfMeasureRepository;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class UnitOfMeasureServiceImplTest {
+@ExtendWith(MockitoExtension.class)
+class UnitOfMeasureServiceImplTest {
 
-    UnitOfMeasureToUnitOfMeasureCommand unitOfMeasureToUnitOfMeasureCommand = new UnitOfMeasureToUnitOfMeasureCommand();
+    @Mock
+    UnitOfMeasureMapper unitOfMeasureMapper;
     UnitOfMeasureService service;
 
     @Mock
     UnitOfMeasureRepository unitOfMeasureRepository;
 
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+    @InjectMocks
+    UnitOfMeasureServiceImpl unitOfMeasureService;
 
-        service = new UnitOfMeasureServiceImpl(unitOfMeasureRepository, unitOfMeasureToUnitOfMeasureCommand);
+    @BeforeEach
+    public void setUp() {
     }
 
     @Test
-    public void listAllUoms() throws Exception {
+    void listAllUnitOfMeasures() {
         //given
         Set<UnitOfMeasure> unitOfMeasures = new HashSet<>();
         UnitOfMeasure uom1 = new UnitOfMeasure();
@@ -42,13 +47,11 @@ public class UnitOfMeasureServiceImplTest {
         unitOfMeasures.add(uom2);
 
         when(unitOfMeasureRepository.findAll()).thenReturn(unitOfMeasures);
-
         //when
-        Set<UnitOfMeasureDTO> commands = service.listAllUoms();
+        Set<UnitOfMeasureDTO> commands = service.listAllUnitOfMeasures();
 
         //then
         assertEquals(2, commands.size());
         verify(unitOfMeasureRepository, times(1)).findAll();
     }
-
 }

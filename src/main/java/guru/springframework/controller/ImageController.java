@@ -46,7 +46,7 @@ public class ImageController {
         return "redirect:/recipe/" + id + "/show";
     }
 
-    @GetMapping("recipe/{id}/recipeimage")
+    @GetMapping("recipe/{id}/recipeImage")
     public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
         RecipeDTO recipeDTO = recipeService.findDTOById(id);
 
