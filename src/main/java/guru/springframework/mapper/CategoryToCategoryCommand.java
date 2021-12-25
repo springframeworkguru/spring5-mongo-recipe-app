@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.CategoryCommand;
+import guru.springframework.dto.CategoryDTO;
 import guru.springframework.model.Category;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
@@ -11,21 +11,21 @@ import org.springframework.stereotype.Component;
  * Created by jt on 6/21/17.
  */
 @Component
-public class CategoryToCategoryCommand implements Converter<Category, CategoryCommand> {
+public class CategoryToCategoryCommand implements Converter<Category, CategoryDTO> {
 
     @Synchronized
     @Nullable
     @Override
-    public CategoryCommand convert(Category source) {
+    public CategoryDTO convert(Category source) {
         if (source == null) {
             return null;
         }
 
-        final CategoryCommand categoryCommand = new CategoryCommand();
+        final CategoryDTO categoryDTO = new CategoryDTO();
 
-        categoryCommand.setId(source.getId());
-        categoryCommand.setDescription(source.getDescription());
+        categoryDTO.setId(source.getId());
+        categoryDTO.setDescription(source.getDescription());
 
-        return categoryCommand;
+        return categoryDTO;
     }
 }

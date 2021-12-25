@@ -1,7 +1,7 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.IngredientCommand;
-import guru.springframework.dto.UnitOfMeasureCommand;
+import guru.springframework.dto.IngredientDTO;
+import guru.springframework.dto.UnitOfMeasureDTO;
 import guru.springframework.model.Ingredient;
 import guru.springframework.model.Recipe;
 import org.junit.Before;
@@ -33,19 +33,19 @@ public class IngredientCommandToIngredientTest {
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new IngredientCommand()));
+        assertNotNull(converter.convert(new IngredientDTO()));
     }
 
     @Test
     public void convert() throws Exception {
         //given
-        IngredientCommand command = new IngredientCommand();
+        IngredientDTO command = new IngredientDTO();
         command.setId(ID_VALUE);
         command.setAmount(AMOUNT);
         command.setDescription(DESCRIPTION);
-        UnitOfMeasureCommand unitOfMeasureCommand = new UnitOfMeasureCommand();
-        unitOfMeasureCommand.setId(UOM_ID);
-        command.setUom(unitOfMeasureCommand);
+        UnitOfMeasureDTO unitOfMeasureDTO = new UnitOfMeasureDTO();
+        unitOfMeasureDTO.setId(UOM_ID);
+        command.setUom(unitOfMeasureDTO);
 
         //when
         Ingredient ingredient = converter.convert(command);
@@ -62,11 +62,11 @@ public class IngredientCommandToIngredientTest {
     @Test
     public void convertWithNullUOM() throws Exception {
         //given
-        IngredientCommand command = new IngredientCommand();
+        IngredientDTO command = new IngredientDTO();
         command.setId(ID_VALUE);
         command.setAmount(AMOUNT);
         command.setDescription(DESCRIPTION);
-        UnitOfMeasureCommand unitOfMeasureCommand = new UnitOfMeasureCommand();
+        UnitOfMeasureDTO unitOfMeasureDTO = new UnitOfMeasureDTO();
 
 
         //when

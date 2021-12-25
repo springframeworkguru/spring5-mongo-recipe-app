@@ -1,15 +1,15 @@
 package guru.springframework.service;
 
-import guru.springframework.dto.IngredientCommand;
+import guru.springframework.dto.IngredientDTO;
 
 /**
  * Created by jt on 6/27/17.
  */
 public interface IngredientService {
 
-    IngredientCommand findByRecipeIdAndIngredientId(String recipeId, String ingredientId);
+    IngredientDTO findByRecipeIdAndIngredientId(String recipeId, String ingredientId);
 
-    IngredientCommand saveIngredientCommand(IngredientCommand command);
+    IngredientDTO saveIngredientCommand(IngredientDTO command);
 
     void deleteById(String recipeId, String idToDelete);
 }

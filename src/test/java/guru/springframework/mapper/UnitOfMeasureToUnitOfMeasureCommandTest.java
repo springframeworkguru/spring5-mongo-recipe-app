@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.UnitOfMeasureCommand;
+import guru.springframework.dto.UnitOfMeasureDTO;
 import guru.springframework.model.UnitOfMeasure;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +39,7 @@ public class UnitOfMeasureToUnitOfMeasureCommandTest {
         uom.setId(LONG_VALUE);
         uom.setDescription(DESCRIPTION);
         //when
-        UnitOfMeasureCommand uomc = converter.convert(uom);
+        UnitOfMeasureDTO uomc = converter.convert(uom);
 
         //then
         assertEquals(LONG_VALUE, uomc.getId());

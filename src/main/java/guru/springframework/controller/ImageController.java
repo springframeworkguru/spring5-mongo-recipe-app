@@ -1,6 +1,6 @@
 package guru.springframework.controller;
 
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.service.ImageService;
 import guru.springframework.service.RecipeService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -48,13 +48,13 @@ public class ImageController {
 
     @GetMapping("recipe/{id}/recipeimage")
     public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
-        RecipeCommand recipeCommand = recipeService.findCommandById(id);
+        RecipeDTO recipeDTO = recipeService.findCommandById(id);
 
-        if (recipeCommand.getImage() != null) {
-            byte[] byteArray = new byte[recipeCommand.getImage().length];
+        if (recipeDTO.getImage() != null) {
+            byte[] byteArray = new byte[recipeDTO.getImage().length];
             int i = 0;
 
-            for (Byte wrappedByte : recipeCommand.getImage()){
+            for (Byte wrappedByte : recipeDTO.getImage()){
                 byteArray[i++] = wrappedByte; //auto unboxing
             }
 

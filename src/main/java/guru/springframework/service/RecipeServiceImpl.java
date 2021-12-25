@@ -1,6 +1,6 @@
 package guru.springframework.service;
 
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.mapper.RecipeCommandToRecipe;
 import guru.springframework.mapper.RecipeToRecipeCommand;
 import guru.springframework.model.Recipe;
@@ -54,13 +54,13 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public RecipeCommand findCommandById(String id) {
+    public RecipeDTO findCommandById(String id) {
         return recipeToRecipeCommand.convert(findById(id));
     }
 
     @Override
     @Transactional
-    public RecipeCommand saveRecipeCommand(RecipeCommand command) {
+    public RecipeDTO saveRecipeCommand(RecipeDTO command) {
         Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
 
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);

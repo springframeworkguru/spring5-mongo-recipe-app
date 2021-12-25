@@ -1,6 +1,6 @@
 package guru.springframework.controller;
 
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.service.ImageService;
 import guru.springframework.service.RecipeService;
 import org.junit.Before;
@@ -43,7 +43,7 @@ public class ImageControllerTest {
     @Test
     public void getImageForm() throws Exception {
         //given
-        RecipeCommand command = new RecipeCommand();
+        RecipeDTO command = new RecipeDTO();
         command.setId("1");
 
         when(recipeService.findCommandById(anyString())).thenReturn(command);
@@ -75,7 +75,7 @@ public class ImageControllerTest {
     public void renderImageFromDB() throws Exception {
 
         //given
-        RecipeCommand command = new RecipeCommand();
+        RecipeDTO command = new RecipeDTO();
         command.setId("1");
 
         String s = "fake image text";

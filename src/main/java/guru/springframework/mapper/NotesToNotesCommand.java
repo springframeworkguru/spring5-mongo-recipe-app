@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.NotesCommand;
+import guru.springframework.dto.NotesDTO;
 import guru.springframework.model.Notes;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
@@ -11,19 +11,19 @@ import org.springframework.stereotype.Component;
  * Created by jt on 6/21/17.
  */
 @Component
-public class NotesToNotesCommand implements Converter<Notes, NotesCommand>{
+public class NotesToNotesCommand implements Converter<Notes, NotesDTO>{
 
     @Synchronized
     @Nullable
     @Override
-    public NotesCommand convert(Notes source) {
+    public NotesDTO convert(Notes source) {
         if (source == null) {
             return null;
         }
 
-        final NotesCommand notesCommand = new NotesCommand();
-        notesCommand.setId(source.getId());
-        notesCommand.setRecipeNotes(source.getRecipeNotes());
-        return notesCommand;
+        final NotesDTO notesDTO = new NotesDTO();
+        notesDTO.setId(source.getId());
+        notesDTO.setRecipeNotes(source.getRecipeNotes());
+        return notesDTO;
     }
 }

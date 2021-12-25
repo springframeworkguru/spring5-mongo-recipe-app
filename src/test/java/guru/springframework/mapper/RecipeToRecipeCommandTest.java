@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -81,7 +81,7 @@ public class RecipeToRecipeCommandTest {
         recipe.getIngredients().add(ingredient2);
 
         //when
-        RecipeCommand command = converter.convert(recipe);
+        RecipeDTO command = converter.convert(recipe);
 
         //then
         assertNotNull(command);

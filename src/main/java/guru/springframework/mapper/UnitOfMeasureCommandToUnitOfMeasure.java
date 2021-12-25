@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.UnitOfMeasureCommand;
+import guru.springframework.dto.UnitOfMeasureDTO;
 import guru.springframework.model.UnitOfMeasure;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
  * Created by jt on 6/21/17.
  */
 @Component
-public class UnitOfMeasureCommandToUnitOfMeasure implements Converter<UnitOfMeasureCommand, UnitOfMeasure>{
+public class UnitOfMeasureCommandToUnitOfMeasure implements Converter<UnitOfMeasureDTO, UnitOfMeasure>{
 
     @Synchronized
     @Nullable
     @Override
-    public UnitOfMeasure convert(UnitOfMeasureCommand source) {
+    public UnitOfMeasure convert(UnitOfMeasureDTO source) {
         if (source == null) {
             return null;
         }

@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class CategoryCommand {
+public class CategoryDTO {
     private String id;
     private String description;
 }

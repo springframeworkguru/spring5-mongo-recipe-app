@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.NotesCommand;
+import guru.springframework.dto.NotesDTO;
 import guru.springframework.model.Notes;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,18 +26,18 @@ public class NotesCommandToNotesTest {
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new NotesCommand()));
+        assertNotNull(converter.convert(new NotesDTO()));
     }
 
     @Test
     public void convert() throws Exception {
         //given
-        NotesCommand notesCommand = new NotesCommand();
-        notesCommand.setId(ID_VALUE);
-        notesCommand.setRecipeNotes(RECIPE_NOTES);
+        NotesDTO notesDTO = new NotesDTO();
+        notesDTO.setId(ID_VALUE);
+        notesDTO.setRecipeNotes(RECIPE_NOTES);
 
         //when
-        Notes notes = converter.convert(notesCommand);
+        Notes notes = converter.convert(notesDTO);
 
         //then
         assertNotNull(notes);

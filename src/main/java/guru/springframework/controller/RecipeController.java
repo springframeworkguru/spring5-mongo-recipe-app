@@ -1,6 +1,6 @@
 package guru.springframework.controller;
 
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.exception.NotFoundException;
 import guru.springframework.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class RecipeController {
 
     @GetMapping("recipe/new")
     public String newRecipe(Model model){
-        model.addAttribute("recipe", new RecipeCommand());
+        model.addAttribute("recipe", new RecipeDTO());
 
         return "recipe/recipeform";
     }
@@ -49,7 +49,7 @@ public class RecipeController {
     }
 
     @PostMapping("recipe")
-    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult){
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeDTO command, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
 
@@ -60,7 +60,7 @@ public class RecipeController {
             return RECIPE_RECIPEFORM_URL;
         }
 
-        RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
+        RecipeDTO savedCommand = recipeService.saveRecipeCommand(command);
 
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }

@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.IngredientCommand;
+import guru.springframework.dto.IngredientDTO;
 import guru.springframework.model.Ingredient;
 import guru.springframework.model.Recipe;
 import org.springframework.core.convert.converter.Converter;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * Created by jt on 6/21/17.
  */
 @Component
-public class IngredientCommandToIngredient implements Converter<IngredientCommand, Ingredient> {
+public class IngredientCommandToIngredient implements Converter<IngredientDTO, Ingredient> {
 
     private final UnitOfMeasureCommandToUnitOfMeasure uomConverter;
 
@@ -21,7 +21,7 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
 
     @Nullable
     @Override
-    public Ingredient convert(IngredientCommand source) {
+    public Ingredient convert(IngredientDTO source) {
         if (source == null) {
             return null;
         }

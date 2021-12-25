@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.CategoryCommand;
+import guru.springframework.dto.CategoryDTO;
 import guru.springframework.model.Category;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,11 +39,11 @@ public class CategoryToCategoryCommandTest {
         category.setDescription(DESCRIPTION);
 
         //when
-        CategoryCommand categoryCommand = convter.convert(category);
+        CategoryDTO categoryDTO = convter.convert(category);
 
         //then
-        assertEquals(ID_VALUE, categoryCommand.getId());
-        assertEquals(DESCRIPTION, categoryCommand.getDescription());
+        assertEquals(ID_VALUE, categoryDTO.getId());
+        assertEquals(DESCRIPTION, categoryDTO.getDescription());
 
     }
 

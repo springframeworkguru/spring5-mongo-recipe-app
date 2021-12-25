@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.model.Recipe;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * Created by jt on 6/21/17.
  */
 @Component
-public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
+public class RecipeCommandToRecipe implements Converter<RecipeDTO, Recipe> {
 
     private final CategoryCommandToCategory categoryConveter;
     private final IngredientCommandToIngredient ingredientConverter;
@@ -27,7 +27,7 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
     @Synchronized
     @Nullable
     @Override
-    public Recipe convert(RecipeCommand source) {
+    public Recipe convert(RecipeDTO source) {
         if (source == null) {
             return null;
         }

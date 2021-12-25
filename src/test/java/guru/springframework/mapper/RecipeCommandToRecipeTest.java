@@ -1,9 +1,9 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.CategoryCommand;
-import guru.springframework.dto.IngredientCommand;
-import guru.springframework.dto.NotesCommand;
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.CategoryDTO;
+import guru.springframework.dto.IngredientDTO;
+import guru.springframework.dto.NotesDTO;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.model.Difficulty;
 import guru.springframework.model.Recipe;
 import org.junit.Before;
@@ -44,48 +44,48 @@ public class RecipeCommandToRecipeTest {
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new RecipeCommand()));
+        assertNotNull(converter.convert(new RecipeDTO()));
     }
 
     @Test
     public void convert() throws Exception {
         //given
-        RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(RECIPE_ID);
-        recipeCommand.setCookTime(COOK_TIME);
-        recipeCommand.setPrepTime(PREP_TIME);
-        recipeCommand.setDescription(DESCRIPTION);
-        recipeCommand.setDifficulty(DIFFICULTY);
-        recipeCommand.setDirections(DIRECTIONS);
-        recipeCommand.setServings(SERVINGS);
-        recipeCommand.setSource(SOURCE);
-        recipeCommand.setUrl(URL);
+        RecipeDTO recipeDTO = new RecipeDTO();
+        recipeDTO.setId(RECIPE_ID);
+        recipeDTO.setCookTime(COOK_TIME);
+        recipeDTO.setPrepTime(PREP_TIME);
+        recipeDTO.setDescription(DESCRIPTION);
+        recipeDTO.setDifficulty(DIFFICULTY);
+        recipeDTO.setDirections(DIRECTIONS);
+        recipeDTO.setServings(SERVINGS);
+        recipeDTO.setSource(SOURCE);
+        recipeDTO.setUrl(URL);
 
-        NotesCommand notes = new NotesCommand();
+        NotesDTO notes = new NotesDTO();
         notes.setId(NOTES_ID);
 
-        recipeCommand.setNotes(notes);
+        recipeDTO.setNotes(notes);
 
-        CategoryCommand category = new CategoryCommand();
+        CategoryDTO category = new CategoryDTO();
         category.setId(CAT_ID_1);
 
-        CategoryCommand category2 = new CategoryCommand();
+        CategoryDTO category2 = new CategoryDTO();
         category2.setId(CAT_ID2);
 
-        recipeCommand.getCategories().add(category);
-        recipeCommand.getCategories().add(category2);
+        recipeDTO.getCategories().add(category);
+        recipeDTO.getCategories().add(category2);
 
-        IngredientCommand ingredient = new IngredientCommand();
+        IngredientDTO ingredient = new IngredientDTO();
         ingredient.setId(INGRED_ID_1);
 
-        IngredientCommand ingredient2 = new IngredientCommand();
+        IngredientDTO ingredient2 = new IngredientDTO();
         ingredient2.setId(INGRED_ID_2);
 
-        recipeCommand.getIngredients().add(ingredient);
-        recipeCommand.getIngredients().add(ingredient2);
+        recipeDTO.getIngredients().add(ingredient);
+        recipeDTO.getIngredients().add(ingredient2);
 
         //when
-        Recipe recipe  = converter.convert(recipeCommand);
+        Recipe recipe  = converter.convert(recipeDTO);
 
         assertNotNull(recipe);
         assertEquals(RECIPE_ID, recipe.getId());

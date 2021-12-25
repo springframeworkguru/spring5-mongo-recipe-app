@@ -1,6 +1,6 @@
 package guru.springframework.service;
 
-import guru.springframework.dto.IngredientCommand;
+import guru.springframework.dto.IngredientDTO;
 import guru.springframework.mapper.IngredientCommandToIngredient;
 import guru.springframework.mapper.IngredientToIngredientCommand;
 import guru.springframework.model.Ingredient;
@@ -35,7 +35,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public IngredientCommand findByRecipeIdAndIngredientId(String recipeId, String ingredientId) {
+    public IngredientDTO findByRecipeIdAndIngredientId(String recipeId, String ingredientId) {
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 
@@ -46,7 +46,7 @@ public class IngredientServiceImpl implements IngredientService {
 
         Recipe recipe = recipeOptional.get();
 
-        Optional<IngredientCommand> ingredientCommandOptional = recipe.getIngredients().stream()
+        Optional<IngredientDTO> ingredientCommandOptional = recipe.getIngredients().stream()
                 .filter(ingredient -> ingredient.getId().equals(ingredientId))
                 .map( ingredient -> ingredientToIngredientCommand.convert(ingredient)).findFirst();
 
@@ -60,14 +60,14 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     @Transactional
-    public IngredientCommand saveIngredientCommand(IngredientCommand command) {
+    public IngredientDTO saveIngredientCommand(IngredientDTO command) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(command.getRecipeId());
 
         if(!recipeOptional.isPresent()){
 
             //todo toss error if not found!
             log.error("Recipe not found for id: " + command.getRecipeId());
-            return new IngredientCommand();
+            return new IngredientDTO();
         } else {
             Recipe recipe = recipeOptional.get();
 

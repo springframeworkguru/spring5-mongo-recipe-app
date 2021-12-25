@@ -12,7 +12,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class Recipe {
-
     private String id;
     private String description;
     private Integer prepTime;
@@ -25,7 +24,6 @@ public class Recipe {
     private Byte[] image;
     private Difficulty difficulty;
     private Notes notes;
-
     private Set<Category> categories = new HashSet<>();
 
     public void setNotes(Notes notes) {
@@ -35,9 +33,8 @@ public class Recipe {
         }
     }
 
-    public Recipe addIngredient(Ingredient ingredient){
+    public void addIngredient(Ingredient ingredient){
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
-        return this;
     }
 }

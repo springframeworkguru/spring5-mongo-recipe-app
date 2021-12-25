@@ -4,11 +4,11 @@ import guru.springframework.model.Difficulty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RecipeCommand {
+public class RecipeDTO {
     private String id;
 
     @NotBlank
@@ -37,6 +37,7 @@ public class RecipeCommand {
     @Min(1)
     @Max(100)
     private Integer servings;
+
     private String source;
 
     @URL
@@ -45,9 +46,9 @@ public class RecipeCommand {
     @NotBlank
     private String directions;
 
-    private Set<IngredientCommand> ingredients = new HashSet<>();
+    private Set<IngredientDTO> ingredients = new HashSet<>();
     private Byte[] image;
     private Difficulty difficulty;
-    private NotesCommand notes;
-    private Set<CategoryCommand> categories = new HashSet<>();
+    private NotesDTO notes;
+    private Set<CategoryDTO> categories = new HashSet<>();
 }

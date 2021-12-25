@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.IngredientCommand;
+import guru.springframework.dto.IngredientDTO;
 import guru.springframework.model.Ingredient;
 import guru.springframework.model.Recipe;
 import guru.springframework.model.UnitOfMeasure;
@@ -50,12 +50,12 @@ public class IngredientToIngredientCommandTest {
         ingredient.setDescription(DESCRIPTION);
         ingredient.setUom(null);
         //when
-        IngredientCommand ingredientCommand = converter.convert(ingredient);
+        IngredientDTO ingredientDTO = converter.convert(ingredient);
         //then
-        assertNull(ingredientCommand.getUom());
-        assertEquals(ID_VALUE, ingredientCommand.getId());
-        assertEquals(AMOUNT, ingredientCommand.getAmount());
-        assertEquals(DESCRIPTION, ingredientCommand.getDescription());
+        assertNull(ingredientDTO.getUom());
+        assertEquals(ID_VALUE, ingredientDTO.getId());
+        assertEquals(AMOUNT, ingredientDTO.getAmount());
+        assertEquals(DESCRIPTION, ingredientDTO.getDescription());
     }
 
     @Test
@@ -72,13 +72,13 @@ public class IngredientToIngredientCommandTest {
 
         ingredient.setUom(uom);
         //when
-        IngredientCommand ingredientCommand = converter.convert(ingredient);
+        IngredientDTO ingredientDTO = converter.convert(ingredient);
         //then
-        assertEquals(ID_VALUE, ingredientCommand.getId());
-        assertNotNull(ingredientCommand.getUom());
-        assertEquals(UOM_ID, ingredientCommand.getUom().getId());
-        // assertEquals(RECIPE, ingredientCommand.get);
-        assertEquals(AMOUNT, ingredientCommand.getAmount());
-        assertEquals(DESCRIPTION, ingredientCommand.getDescription());
+        assertEquals(ID_VALUE, ingredientDTO.getId());
+        assertNotNull(ingredientDTO.getUom());
+        assertEquals(UOM_ID, ingredientDTO.getUom().getId());
+        // assertEquals(RECIPE, ingredientDTO.get);
+        assertEquals(AMOUNT, ingredientDTO.getAmount());
+        assertEquals(DESCRIPTION, ingredientDTO.getDescription());
     }
 }

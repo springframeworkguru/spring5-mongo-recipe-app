@@ -1,7 +1,7 @@
 package guru.springframework.service;
 
 
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.mapper.RecipeCommandToRecipe;
 import guru.springframework.mapper.RecipeToRecipeCommand;
 import guru.springframework.model.Recipe;
@@ -78,12 +78,12 @@ public class RecipeServiceImplTest {
 
         when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
 
-        RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId("1");
+        RecipeDTO recipeDTO = new RecipeDTO();
+        recipeDTO.setId("1");
 
-        when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+        when(recipeToRecipeCommand.convert(any())).thenReturn(recipeDTO);
 
-        RecipeCommand commandById = recipeService.findCommandById("1");
+        RecipeDTO commandById = recipeService.findCommandById("1");
 
         assertNotNull("Null recipe returned", commandById);
         verify(recipeRepository, times(1)).findById(anyString());

@@ -1,6 +1,6 @@
 package guru.springframework.service;
 
-import guru.springframework.dto.UnitOfMeasureCommand;
+import guru.springframework.dto.UnitOfMeasureDTO;
 import guru.springframework.mapper.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.repository.UnitOfMeasureRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
     }
 
     @Override
-    public Set<UnitOfMeasureCommand> listAllUoms() {
+    public Set<UnitOfMeasureDTO> listAllUoms() {
 
         return StreamSupport.stream(unitOfMeasureRepository.findAll()
                 .spliterator(), false)

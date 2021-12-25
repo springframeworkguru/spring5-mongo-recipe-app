@@ -1,6 +1,6 @@
 package guru.springframework.service;
 
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.model.Recipe;
 
 import java.util.Set;
@@ -14,9 +14,9 @@ public interface RecipeService {
 
     Recipe findById(String id);
 
-    RecipeCommand findCommandById(String id);
+    RecipeDTO findCommandById(String id);
 
-    RecipeCommand saveRecipeCommand(RecipeCommand command);
+    RecipeDTO saveRecipeCommand(RecipeDTO command);
 
     void deleteById(String idToDelete);
 }

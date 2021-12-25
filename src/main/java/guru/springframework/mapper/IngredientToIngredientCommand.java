@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.IngredientCommand;
+import guru.springframework.dto.IngredientDTO;
 import guru.springframework.model.Ingredient;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * Created by jt on 6/21/17.
  */
 @Component
-public class IngredientToIngredientCommand implements Converter<Ingredient, IngredientCommand> {
+public class IngredientToIngredientCommand implements Converter<Ingredient, IngredientDTO> {
 
     private final UnitOfMeasureToUnitOfMeasureCommand uomConverter;
 
@@ -22,19 +22,19 @@ public class IngredientToIngredientCommand implements Converter<Ingredient, Ingr
     @Synchronized
     @Nullable
     @Override
-    public IngredientCommand convert(Ingredient ingredient) {
+    public IngredientDTO convert(Ingredient ingredient) {
         if (ingredient == null) {
             return null;
         }
 
-        IngredientCommand ingredientCommand = new IngredientCommand();
-        ingredientCommand.setId(ingredient.getId());
+        IngredientDTO ingredientDTO = new IngredientDTO();
+        ingredientDTO.setId(ingredient.getId());
         if (ingredient.getRecipe() != null) {
-            ingredientCommand.setRecipeId(ingredient.getRecipe().getId());
+            ingredientDTO.setRecipeId(ingredient.getRecipe().getId());
         }
-        ingredientCommand.setAmount(ingredient.getAmount());
-        ingredientCommand.setDescription(ingredient.getDescription());
-        ingredientCommand.setUom(uomConverter.convert(ingredient.getUom()));
-        return ingredientCommand;
+        ingredientDTO.setAmount(ingredient.getAmount());
+        ingredientDTO.setDescription(ingredient.getDescription());
+        ingredientDTO.setUom(uomConverter.convert(ingredient.getUom()));
+        return ingredientDTO;
     }
 }

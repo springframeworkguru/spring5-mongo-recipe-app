@@ -1,6 +1,6 @@
 package guru.springframework.service;
 
-import guru.springframework.dto.IngredientCommand;
+import guru.springframework.dto.IngredientDTO;
 import guru.springframework.mapper.IngredientCommandToIngredient;
 import guru.springframework.mapper.IngredientToIngredientCommand;
 import guru.springframework.mapper.UnitOfMeasureCommandToUnitOfMeasure;
@@ -74,11 +74,11 @@ public class IngredientServiceImplTest {
         when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
 
         //then
-        IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId("1", "3");
+        IngredientDTO ingredientDTO = ingredientService.findByRecipeIdAndIngredientId("1", "3");
 
         //when
-        assertEquals("3", ingredientCommand.getId());
-        assertEquals("1", ingredientCommand.getRecipeId());
+        assertEquals("3", ingredientDTO.getId());
+        assertEquals("1", ingredientDTO.getRecipeId());
         verify(recipeRepository, times(1)).findById(anyString());
     }
 
@@ -86,7 +86,7 @@ public class IngredientServiceImplTest {
     @Test
     public void testSaveRecipeCommand() throws Exception {
         //given
-        IngredientCommand command = new IngredientCommand();
+        IngredientDTO command = new IngredientDTO();
         command.setId("3");
         command.setRecipeId("2");
 
@@ -100,7 +100,7 @@ public class IngredientServiceImplTest {
         when(recipeRepository.save(any())).thenReturn(savedRecipe);
 
         //when
-        IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
+        IngredientDTO savedCommand = ingredientService.saveIngredientCommand(command);
 
         //then
         assertEquals("3", savedCommand.getId());

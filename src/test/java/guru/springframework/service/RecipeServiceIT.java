@@ -1,6 +1,6 @@
 package guru.springframework.service;
 
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.mapper.RecipeCommandToRecipe;
 import guru.springframework.mapper.RecipeToRecipeCommand;
 import guru.springframework.model.Recipe;
@@ -44,16 +44,16 @@ public class RecipeServiceIT {
         //given
         Iterable<Recipe> recipes = recipeRepository.findAll();
         Recipe testRecipe = recipes.iterator().next();
-        RecipeCommand testRecipeCommand = recipeToRecipeCommand.convert(testRecipe);
+        RecipeDTO testRecipeDTO = recipeToRecipeCommand.convert(testRecipe);
 
         //when
-        testRecipeCommand.setDescription(NEW_DESCRIPTION);
-        RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand);
+        testRecipeDTO.setDescription(NEW_DESCRIPTION);
+        RecipeDTO savedRecipeDTO = recipeService.saveRecipeCommand(testRecipeDTO);
 
         //then
-        assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());
-        assertEquals(testRecipe.getId(), savedRecipeCommand.getId());
-        assertEquals(testRecipe.getCategories().size(), savedRecipeCommand.getCategories().size());
-        assertEquals(testRecipe.getIngredients().size(), savedRecipeCommand.getIngredients().size());
+        assertEquals(NEW_DESCRIPTION, savedRecipeDTO.getDescription());
+        assertEquals(testRecipe.getId(), savedRecipeDTO.getId());
+        assertEquals(testRecipe.getCategories().size(), savedRecipeDTO.getCategories().size());
+        assertEquals(testRecipe.getIngredients().size(), savedRecipeDTO.getIngredients().size());
     }
 }

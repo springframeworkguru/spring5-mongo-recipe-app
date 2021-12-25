@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.UnitOfMeasureCommand;
+import guru.springframework.dto.UnitOfMeasureDTO;
 import guru.springframework.model.UnitOfMeasure;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,13 +27,13 @@ public class UnitOfMeasureCommandToUnitOfMeasureTest {
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new UnitOfMeasureCommand()));
+        assertNotNull(converter.convert(new UnitOfMeasureDTO()));
     }
 
     @Test
     public void convert() throws Exception {
         //given
-        UnitOfMeasureCommand command = new UnitOfMeasureCommand();
+        UnitOfMeasureDTO command = new UnitOfMeasureDTO();
         command.setId(LONG_VALUE);
         command.setDescription(DESCRIPTION);
 

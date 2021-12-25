@@ -1,6 +1,6 @@
 package guru.springframework.mapper;
 
-import guru.springframework.dto.CategoryCommand;
+import guru.springframework.dto.CategoryDTO;
 import guru.springframework.model.Category;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,18 +25,18 @@ public class CategoryCommandToCategoryTest {
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(conveter.convert(new CategoryCommand()));
+        assertNotNull(conveter.convert(new CategoryDTO()));
     }
 
     @Test
     public void convert() throws Exception {
         //given
-        CategoryCommand categoryCommand = new CategoryCommand();
-        categoryCommand.setId(ID_VALUE);
-        categoryCommand.setDescription(DESCRIPTION);
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(ID_VALUE);
+        categoryDTO.setDescription(DESCRIPTION);
 
         //when
-        Category category = conveter.convert(categoryCommand);
+        Category category = conveter.convert(categoryDTO);
 
         //then
         assertEquals(ID_VALUE, category.getId());

@@ -1,7 +1,7 @@
 package guru.springframework.controller;
 
-import guru.springframework.dto.IngredientCommand;
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.IngredientDTO;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.service.IngredientService;
 import guru.springframework.service.RecipeService;
 import guru.springframework.service.UnitOfMeasureService;
@@ -47,8 +47,8 @@ public class IngredientControllerTest {
     @Test
     public void testListIngredients() throws Exception {
         //given
-        RecipeCommand recipeCommand = new RecipeCommand();
-        when(recipeService.findCommandById(anyString())).thenReturn(recipeCommand);
+        RecipeDTO recipeDTO = new RecipeDTO();
+        when(recipeService.findCommandById(anyString())).thenReturn(recipeDTO);
 
         //when
         mockMvc.perform(get("/recipe/1/ingredients"))
@@ -63,10 +63,10 @@ public class IngredientControllerTest {
     @Test
     public void testShowIngredient() throws Exception {
         //given
-        IngredientCommand ingredientCommand = new IngredientCommand();
+        IngredientDTO ingredientDTO = new IngredientDTO();
 
         //when
-        when(ingredientService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(ingredientCommand);
+        when(ingredientService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(ingredientDTO);
 
         //then
         mockMvc.perform(get("/recipe/1/ingredient/2/show"))
@@ -78,11 +78,11 @@ public class IngredientControllerTest {
     @Test
     public void testNewIngredientForm() throws Exception {
         //given
-        RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId("1");
+        RecipeDTO recipeDTO = new RecipeDTO();
+        recipeDTO.setId("1");
 
         //when
-        when(recipeService.findCommandById(anyString())).thenReturn(recipeCommand);
+        when(recipeService.findCommandById(anyString())).thenReturn(recipeDTO);
         when(unitOfMeasureService.listAllUoms()).thenReturn(new HashSet<>());
 
         //then
@@ -99,10 +99,10 @@ public class IngredientControllerTest {
     @Test
     public void testUpdateIngredientForm() throws Exception {
         //given
-        IngredientCommand ingredientCommand = new IngredientCommand();
+        IngredientDTO ingredientDTO = new IngredientDTO();
 
         //when
-        when(ingredientService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(ingredientCommand);
+        when(ingredientService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(ingredientDTO);
         when(unitOfMeasureService.listAllUoms()).thenReturn(new HashSet<>());
 
         //then
@@ -116,7 +116,7 @@ public class IngredientControllerTest {
     @Test
     public void testSaveOrUpdate() throws Exception {
         //given
-        IngredientCommand command = new IngredientCommand();
+        IngredientDTO command = new IngredientDTO();
         command.setId("3");
         command.setRecipeId("2");
 

@@ -1,6 +1,6 @@
 package guru.springframework.service;
 
-import guru.springframework.dto.UnitOfMeasureCommand;
+import guru.springframework.dto.UnitOfMeasureDTO;
 import guru.springframework.mapper.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.model.UnitOfMeasure;
 import guru.springframework.repository.UnitOfMeasureRepository;
@@ -45,7 +45,7 @@ public class UnitOfMeasureServiceImplTest {
         when(unitOfMeasureRepository.findAll()).thenReturn(unitOfMeasures);
 
         //when
-        Set<UnitOfMeasureCommand> commands = service.listAllUoms();
+        Set<UnitOfMeasureDTO> commands = service.listAllUoms();
 
         //then
         assertEquals(2, commands.size());

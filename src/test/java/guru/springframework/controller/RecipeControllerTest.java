@@ -1,6 +1,6 @@
 package guru.springframework.controller;
 
-import guru.springframework.dto.RecipeCommand;
+import guru.springframework.dto.RecipeDTO;
 import guru.springframework.model.Recipe;
 import guru.springframework.exception.NotFoundException;
 import guru.springframework.service.RecipeService;
@@ -67,7 +67,7 @@ public class RecipeControllerTest {
 
     @Test
     public void testGetNewRecipeForm() throws Exception {
-        RecipeCommand command = new RecipeCommand();
+        RecipeDTO command = new RecipeDTO();
 
         mockMvc.perform(get("/recipe/new"))
                 .andExpect(status().isOk())
@@ -77,7 +77,7 @@ public class RecipeControllerTest {
 
     @Test
     public void testPostNewRecipeForm() throws Exception {
-        RecipeCommand command = new RecipeCommand();
+        RecipeDTO command = new RecipeDTO();
         command.setId("2");
 
         when(recipeService.saveRecipeCommand(any())).thenReturn(command);
@@ -94,7 +94,7 @@ public class RecipeControllerTest {
 
     @Test
     public void testPostNewRecipeFormValidationFail() throws Exception {
-        RecipeCommand command = new RecipeCommand();
+        RecipeDTO command = new RecipeDTO();
         command.setId("2");
 
         when(recipeService.saveRecipeCommand(any())).thenReturn(command);
@@ -112,7 +112,7 @@ public class RecipeControllerTest {
 
     @Test
     public void testGetUpdateView() throws Exception {
-        RecipeCommand command = new RecipeCommand();
+        RecipeDTO command = new RecipeDTO();
         command.setId("2");
 
         when(recipeService.findCommandById(anyString())).thenReturn(command);
