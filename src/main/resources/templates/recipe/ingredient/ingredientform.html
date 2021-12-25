@@ -20,7 +20,7 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <!--/*@thymesVar id="ingredient" type="guru.springframework.commands.IngredientCommand"*/-->
+            <!--/*@thymesVar id="ingredient" type="guru.springframework.dto.IngredientCommand"*/-->
             <form  th:object="${ingredient}" th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'} ">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="pannel-group">
