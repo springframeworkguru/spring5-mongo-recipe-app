@@ -1,6 +1,7 @@
 package guru.springframework.service;
 
 import guru.springframework.dto.UnitOfMeasureDTO;
+import guru.springframework.mapper.UnitOfMeasureMapper;
 import guru.springframework.repository.UnitOfMeasureRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,21 +14,20 @@ import java.util.stream.StreamSupport;
  */
 @Service
 public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
-
     private final UnitOfMeasureRepository unitOfMeasureRepository;
-    private final UnitOfMeasureToUnitOfMeasureCommand unitOfMeasureToUnitOfMeasureCommand;
+    private final UnitOfMeasureMapper unitOfMeasureMapper;
 
-    public UnitOfMeasureServiceImpl(UnitOfMeasureRepository unitOfMeasureRepository, UnitOfMeasureToUnitOfMeasureCommand unitOfMeasureToUnitOfMeasureCommand) {
+    public UnitOfMeasureServiceImpl(UnitOfMeasureRepository unitOfMeasureRepository,
+                                    UnitOfMeasureMapper unitOfMeasureMapper) {
         this.unitOfMeasureRepository = unitOfMeasureRepository;
-        this.unitOfMeasureToUnitOfMeasureCommand = unitOfMeasureToUnitOfMeasureCommand;
+        this.unitOfMeasureMapper = unitOfMeasureMapper;
     }
 
     @Override
-    public Set<UnitOfMeasureDTO> listAllUoms() {
-
+    public Set<UnitOfMeasureDTO> listAllUnitOfMeasures() {
         return StreamSupport.stream(unitOfMeasureRepository.findAll()
-                .spliterator(), false)
-                .map(unitOfMeasureToUnitOfMeasureCommand::convert)
+                        .spliterator(), false)
+                .map(unitOfMeasureMapper::toDTO)
                 .collect(Collectors.toSet());
     }
 }
