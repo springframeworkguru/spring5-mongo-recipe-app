@@ -9,7 +9,7 @@ public interface IngredientService {
 
     IngredientDTO findByRecipeIdAndIngredientId(String recipeId, String ingredientId);
 
-    IngredientDTO saveIngredientCommand(IngredientDTO command);
+    IngredientDTO saveIngredientDTO(IngredientDTO ingredientDTO);
 
-    void deleteById(String recipeId, String idToDelete);
+    void deleteById(String recipeId, String ingredientId);
 }
