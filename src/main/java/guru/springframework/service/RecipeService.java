@@ -9,14 +9,13 @@ import java.util.Set;
  * Created by jt on 6/13/17.
  */
 public interface RecipeService {
-
     Set<Recipe> getRecipes();
 
     Recipe findById(String id);
 
-    RecipeDTO findCommandById(String id);
+    RecipeDTO findDTOById(String id);
 
-    RecipeDTO saveRecipeCommand(RecipeDTO command);
+    RecipeDTO saveRecipeDTO(RecipeDTO recipeDTO);
 
-    void deleteById(String idToDelete);
+    void deleteById(String id);
 }

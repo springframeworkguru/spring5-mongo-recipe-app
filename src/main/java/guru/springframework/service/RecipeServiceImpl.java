@@ -1,6 +1,7 @@
 package guru.springframework.service;
 
 import guru.springframework.dto.RecipeDTO;
+import guru.springframework.mapper.RecipeMapper;
 import guru.springframework.model.Recipe;
 import guru.springframework.exception.NotFoundException;
 import guru.springframework.repository.RecipeRepository;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by jt on 6/13/17.
@@ -18,56 +21,52 @@ import java.util.Set;
 @Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
-
     private final RecipeRepository recipeRepository;
-    private final RecipeCommandToRecipe recipeCommandToRecipe;
-    private final RecipeToRecipeCommand recipeToRecipeCommand;
+    private final RecipeMapper recipeMapper;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeCommandToRecipe recipeCommandToRecipe, RecipeToRecipeCommand recipeToRecipeCommand) {
+    public RecipeServiceImpl(RecipeRepository recipeRepository,
+                             RecipeMapper recipeMapper) {
         this.recipeRepository = recipeRepository;
-        this.recipeCommandToRecipe = recipeCommandToRecipe;
-        this.recipeToRecipeCommand = recipeToRecipeCommand;
+        this.recipeMapper = recipeMapper;
     }
 
     @Override
+    @Transactional
     public Set<Recipe> getRecipes() {
         log.debug("I'm in the service");
 
         Set<Recipe> recipeSet = new HashSet<>();
         recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
+
         return recipeSet;
     }
 
     @Override
+    @Transactional
     public Recipe findById(String id) {
-
-        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
-
-        if (!recipeOptional.isPresent()) {
-            throw new NotFoundException("Recipe Not Found. For ID value: " + id );
-        }
-
-        return recipeOptional.get();
+        return recipeRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Recipe Not Found. For ID value: " + id));
     }
 
     @Override
     @Transactional
-    public RecipeDTO findCommandById(String id) {
-        return recipeToRecipeCommand.convert(findById(id));
+    public RecipeDTO findDTOById(String id) {
+        return recipeMapper.toDTO(findById(id));
     }
 
     @Override
     @Transactional
-    public RecipeDTO saveRecipeCommand(RecipeDTO command) {
-        Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
-
-        Recipe savedRecipe = recipeRepository.save(detachedRecipe);
+    public RecipeDTO saveRecipeDTO(RecipeDTO recipeDTO) {
+        Recipe recipe = recipeMapper.toEntity(recipeDTO);
+        Recipe savedRecipe = recipeRepository.save(recipe);
         log.debug("Saved RecipeId:" + savedRecipe.getId());
-        return recipeToRecipeCommand.convert(savedRecipe);
+
+        return recipeMapper.toDTO(savedRecipe);
     }
 
     @Override
-    public void deleteById(String idToDelete) {
-        recipeRepository.deleteById(idToDelete);
+    @Transactional
+    public void deleteById(String id) {
+        recipeRepository.deleteById(id);
     }
 }
