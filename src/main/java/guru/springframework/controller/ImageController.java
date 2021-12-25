@@ -22,7 +22,6 @@ import java.io.InputStream;
  */
 @Controller
 public class ImageController {
-
     private final ImageService imageService;
     private final RecipeService recipeService;
 
@@ -32,14 +31,15 @@ public class ImageController {
     }
 
     @GetMapping("recipe/{id}/image")
-    public String showUploadForm(@PathVariable String id, Model model){
-        model.addAttribute("recipe", recipeService.findCommandById(id));
+    public String showUploadForm(@PathVariable String id, Model model) {
+        model.addAttribute("recipe", recipeService.findDTOById(id));
 
-        return "recipe/imageuploadform";
+        return "recipe/imageUploadForm";
     }
 
     @PostMapping("recipe/{id}/image")
-    public String handleImagePost(@PathVariable String id, @RequestParam("imagefile") MultipartFile file){
+    public String handleImagePost(@PathVariable String id,
+                                  @RequestParam("imageFile") MultipartFile file) {
 
         imageService.saveImageFile(id, file);
 
@@ -48,19 +48,19 @@ public class ImageController {
 
     @GetMapping("recipe/{id}/recipeimage")
     public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
-        RecipeDTO recipeDTO = recipeService.findCommandById(id);
+        RecipeDTO recipeDTO = recipeService.findDTOById(id);
 
         if (recipeDTO.getImage() != null) {
             byte[] byteArray = new byte[recipeDTO.getImage().length];
             int i = 0;
 
-            for (Byte wrappedByte : recipeDTO.getImage()){
+            for (Byte wrappedByte : recipeDTO.getImage()) {
                 byteArray[i++] = wrappedByte; //auto unboxing
             }
 
             response.setContentType("image/jpeg");
-            InputStream is = new ByteArrayInputStream(byteArray);
-            IOUtils.copy(is, response.getOutputStream());
+            InputStream inputStream = new ByteArrayInputStream(byteArray);
+            IOUtils.copy(inputStream, response.getOutputStream());
         }
     }
 }
