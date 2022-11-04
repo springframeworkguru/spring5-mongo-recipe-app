@@ -2,10 +2,12 @@ package guru.springframework.converters;
 
 import guru.springframework.commands.NotesCommand;
 import guru.springframework.domain.Notes;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static com.mongodb.assertions.Assertions.assertNull;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NotesCommandToNotesTest {
 
@@ -13,7 +15,7 @@ public class NotesCommandToNotesTest {
     public static final String RECIPE_NOTES = "Notes";
     NotesCommandToNotes converter;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         converter = new NotesCommandToNotes();
 
